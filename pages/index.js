@@ -8,13 +8,13 @@ const Home = () => {
       <h2 className="text-2xl font-semibold">Recent Posts</h2>
       <ul className="list-disc pl-5">
         <li className="my-2">
-          <a className="text-blue-500 hover:underline">Post Title 1</a>
+          <a className="text-blue-500">Post Title 1</a>
         </li>
         <li className="my-2">
-          <a className="text-blue-500 hover:underline">Post Title 2</a>
+          <a className="text-blue-500">Post Title 2</a>
         </li>
         <li className="my-2">
-          <a className="text-blue-500 hover:underline">Post Title 3</a>
+          <a className="text-blue-500">Post Title 3</a>
         </li>
       </ul>
     </div>

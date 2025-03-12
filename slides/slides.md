@@ -20,8 +20,11 @@ size: 16:9
 3. Alternatives
 4. Why GitHub Actions?
 5. Use Cases & Integrations
-6. Examples & Demos
-7. Summary & Q&A
+6. Writing GitHub Actions
+7. Understanding YAML & Workflow Structure
+8. Breakdown of a Workflow File
+9. Examples & Demos
+10. Summary & Q&A
 
 ---
 
@@ -84,6 +87,113 @@ size: 16:9
 
 ---
 
+# ✍️ Writing GitHub Actions
+
+- Define workflows using **YAML** files.
+- Workflows are stored in `.github/workflows/`.
+- Each workflow consists of **triggers, jobs, and steps**.
+- Can use predefined or custom actions.
+
+---
+
+# 📜 Understanding YAML
+
+- **YAML (Yet Another Markup Language)** is used for configuration.
+- Uses indentation instead of brackets.
+- Key-value pairs structure.
+- Example:
+
+```yaml
+name: Example Workflow
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a message
+        run: echo "Hello, YAML!"
+```
+
+---
+
+# 📄 Breakdown of a Workflow File
+
+### **name**
+- Defines the workflow name.
+- Helps identify it in GitHub Actions UI.
+
+```yaml
+name: CI Pipeline
+```
+
+---
+
+# 🏷️ run-name
+
+- Defines a **dynamic name** for the workflow run.
+- Useful for custom naming based on events.
+
+```yaml
+run-name: Deploying ${{ github.ref }}
+```
+
+---
+
+# 🎯 on (Triggers)
+
+- Specifies when the workflow runs.
+- Supports events like `push`, `pull_request`, `schedule`.
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+```
+
+---
+
+# 🏗️ jobs
+
+- Defines what will be executed.
+- Each job runs in a separate runner.
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+```
+
+---
+
+# 🔄 steps
+
+- Sequence of tasks in a job.
+- Can run shell commands or use prebuilt actions.
+
+```yaml
+steps:
+  - name: Print a message
+    run: echo "Hello World!"
+```
+
+---
+
+# 🔌 Using Prebuilt Actions
+
+- GitHub Actions Marketplace has reusable actions.
+- Example: Checking out a repository.
+
+```yaml
+- name: Checkout repository
+  uses: actions/checkout@v3
+```
+
+---
+
 # 📝 Example: Simple CI Workflow
 
 ```yaml
@@ -108,9 +218,9 @@ jobs:
 # 📌 Summary
 
 - GitHub Actions enable powerful CI/CD workflows.
-- Seamless integration with GitHub repositories.
-- Supports various automation use cases.
-- Marketplace offers reusable actions.
+- YAML-based configuration for automation.
+- Flexible triggers, jobs, and steps.
+- Supports marketplace actions for easy integration.
 
 ---
 

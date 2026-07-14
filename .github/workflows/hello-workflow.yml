@@ -1,0 +1,18 @@
+name: Hello Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello
+        run: 'echo "Hello from GitHub Actions, triggered by @${{ github.actor }}"'
+      - name: Show event
+        run: 'echo "Event name: ${{ github.event_name }}"'

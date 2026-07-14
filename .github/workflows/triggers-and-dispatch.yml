@@ -1,0 +1,33 @@
+name: Triggers And Dispatch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "slides/**"
+      - "README.md"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "info"
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+
+permissions:
+  contents: read
+
+jobs:
+  trigger-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger source
+        run: 'echo "Triggered by ${{ github.event_name }}"'
+      - name: Input value when manually dispatched
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: 'echo "Selected log level: ${{ inputs.logLevel }}"'

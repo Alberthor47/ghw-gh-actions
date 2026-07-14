@@ -2,33 +2,30 @@
 marp: true
 theme: default
 paginate: true
-footer: "GitHub Actions | Major League Hacking"
+footer: "CI/CD with GitHub Actions | Major League Hacking"
 size: 16:9
+title: "Global Hack Week: Season Launch"
 ---
 
-# 🚀 Introduction to GitHub Actions
+# GitHub Actions Workshop
 
 **Presented by:** Alberto Camarena
-**Date:** 12/03/25 📅
+**Date:** 14/07/26
 
 ---
 
-# 📌 Agenda
+# Agenda
 
 1. What is CI/CD?
 2. What are GitHub Actions?
-3. Alternatives
-4. Why GitHub Actions?
-5. Use Cases & Integrations
-6. Writing GitHub Actions
-7. Understanding YAML & Workflow Structure
-8. Breakdown of a Workflow File
-9. Examples & Demos
-10. Summary & Q&A
+3. Core workflow anatomy
+4. Practical examples (5)
+5. Security defaults
+6. Summary and Q&A
 
 ---
 
-# 🔄 What is CI/CD?
+# What Is CI/CD?
 
 **Continuous Integration (CI)**
 - Automatically test and merge code changes.
@@ -40,7 +37,7 @@ size: 16:9
 
 ---
 
-# ⚙️ What are GitHub Actions?
+# What Are GitHub Actions?
 
 - **Automated workflows** within GitHub.
 - Allows CI/CD directly in GitHub repositories.
@@ -51,7 +48,7 @@ size: 16:9
 
 ---
 
-# 📊 Alternatives to GitHub Actions
+# CI/CD Tooling Snapshot
 
 | CI/CD Tool    | Hosting  | Notable Features       |
 |--------------|---------|----------------------|
@@ -62,168 +59,163 @@ size: 16:9
 
 ---
 
-# 🎯 Why GitHub Actions?
+# Why Teams Use GitHub Actions
 
-✅ **Seamless GitHub integration**
-✅ **Easy-to-use YAML syntax**
-✅ **Flexible workflows**
-✅ **Marketplace with pre-built actions**
-✅ **Free for public repositories**
-
----
-
-# 🛠️ Use Cases & Integrations
-
-### Use Cases:
-- 🚀 **Automated testing**
-- 📦 **Build & deploy applications**
-- 🔄 **Dependency updates**
-- 🔍 **Code quality checks**
-
-### Integrations:
-- **AWS, Azure, GCP** for cloud deployments
-- **Docker** for containerized applications
-- **Slack & Teams** for notifications
+- Native integration with issues, PRs, and checks.
+- Easy onboarding for repository contributors.
+- Huge ecosystem of reusable actions.
+- Strong support for CI, CD, maintenance, and security automation.
 
 ---
 
-# ✍️ Writing GitHub Actions
+# Workflow Anatomy (At A Glance)
 
-- Define workflows using **YAML** files.
-- Workflows are stored in `.github/workflows/`.
-- Each workflow consists of **triggers, jobs, and steps**.
-- Can use predefined or custom actions.
+Every workflow has:
+
+1. `on`: when the workflow runs
+2. `jobs`: what groups of work execute
+3. `steps`: commands or actions inside each job
+4. `uses` / `run`: either reusable actions or shell commands
 
 ---
 
-# 📜 Understanding YAML
-
-- **YAML (Yet Another Markup Language)** is used for configuration.
-- Uses indentation instead of brackets.
-- Key-value pairs structure.
-- Example:
+# Workflow Anatomy (Single File)
 
 ```yaml
-name: Example Workflow
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print a message
-        run: echo "Hello, YAML!"
-```
+name: CI Demo
 
----
-
-# 📄 Breakdown of a Workflow File
-
-### **name**
-- Defines the workflow name.
-- Helps identify it in GitHub Actions UI.
-
-```yaml
-name: CI Pipeline
-```
-
----
-
-# 🏷️ run-name
-
-- Defines a **dynamic name** for the workflow run.
-- Useful for custom naming based on events.
-
-```yaml
-run-name: Deploying ${{ github.ref }}
-```
-
----
-
-# 🎯 on (Triggers)
-
-- Specifies when the workflow runs.
-- Supports events like `push`, `pull_request`, `schedule`.
-
-```yaml
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+...[continue]
 ```
 
 ---
-
-# 🏗️ jobs
-
-- Defines what will be executed.
-- Each job runs in a separate runner.
 
 ```yaml
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-```
-
----
-
-# 🔄 steps
-
-- Sequence of tasks in a job.
-- Can run shell commands or use prebuilt actions.
-
-```yaml
-steps:
-  - name: Print a message
-    run: echo "Hello World!"
-```
-
----
-
-# 🔌 Using Prebuilt Actions
-
-- GitHub Actions Marketplace has reusable actions.
-- Example: Checking out a repository.
-
-```yaml
-- name: Checkout repository
-  uses: actions/checkout@v3
-```
-
----
-
-# 📝 Example: Simple CI Workflow
-
-```yaml
-name: CI Pipeline
-
-on: [push, pull_request]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm install
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Run tests
         run: npm test
 ```
 
 ---
 
-# 📌 Summary
+# YAML Tips That Save Debug Time
 
-- GitHub Actions enable powerful CI/CD workflows.
-- YAML-based configuration for automation.
-- Flexible triggers, jobs, and steps.
-- Supports marketplace actions for easy integration.
+- Indentation matters (spaces, not tabs).
+- Use clear step names so logs are readable.
+- Prefer explicit branches and filters over overly broad triggers.
+- Start simple, then layer matrix, caching, artifacts, and deployments.
 
 ---
 
-# ❓ Q&A
+# Practical Example 1: Hello Workflow
 
-💡 Questions? Let's discuss! 🚀
+Learning goal:
+- Create the smallest useful workflow.
+- Understand `github.actor` and event context.
+
+Repo file:
+- `.github/workflows/hello-workflow.yml`
+
+---
+
+# Practical Example 2: Triggers + Manual Inputs
+
+Learning goal:
+- Run on `push` for one branch.
+- Add manual `workflow_dispatch` inputs.
+
+Repo file:
+- `.github/workflows/triggers-and-dispatch.yml`
+
+---
+
+# Practical Example 3: Expressions + Conditions
+
+Learning goal:
+- Use `if:` at job and step level.
+- Condition behavior by event type.
+
+Repo file:
+- `.github/workflows/expressions-and-conditions.yml`
+
+---
+
+# Practical Example 4: Contexts + Env Vars
+
+Learning goal:
+- Read from `github`, `env`, and `vars` contexts.
+- Persist values during the run with `$GITHUB_ENV`.
+
+Repo file:
+- `.github/workflows/contexts-and-env.yml`
+
+---
+
+# Practical Example 5: Node CI Matrix
+
+Learning goal:
+- Test multiple Node versions in parallel.
+- Add dependency cache via setup-node.
+
+Repo file:
+- `.github/workflows/ci-node-matrix.yml`
+
+---
+
+# Secure Defaults For Beginners
+
+- Set minimal `GITHUB_TOKEN` permissions.
+- Store tokens/credentials in repository or environment secrets.
+- Avoid running unsafe fork code in trusted contexts.
+- Pin actions to trusted versions, and use SHAs for high-security workflows.
+
+---
+
+# Example: Minimal Token Permissions
+
+```yaml
+permissions:
+  contents: read
+```
+
+Add more permissions only when a job needs them.
+
+---
+
+# Where To Learn More
+
+- [GitHub Actions Docs](https://docs.github.com/en/actions)
+- [Workflow syntax reference](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)
+- [Events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
+- [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
+
+---
+
+# Summary
+
+- GitHub Actions is a practical way to automate development workflows.
+- Start with clear triggers and readable jobs.
+- Build confidence through small, runnable examples.
+- Apply secure defaults early.
+
+---
+
+# Q&A
+
+Questions welcome.

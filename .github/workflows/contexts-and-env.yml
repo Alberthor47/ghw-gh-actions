@@ -1,0 +1,27 @@
+name: Contexts And Env
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  context-demo:
+    runs-on: ubuntu-latest
+    env:
+      WORKSHOP_NAME: "GHW GitHub Actions"
+      TARGET_BRANCH: "main"
+    steps:
+      - name: Print context values
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Ref: ${{ github.ref }}"
+      - name: Create runtime variable
+        run: echo "SESSION_DATE=2026-07-14" >> "$GITHUB_ENV"
+      - name: Print env values
+        run: |
+          echo "Workshop: $WORKSHOP_NAME"
+          echo "Target branch: $TARGET_BRANCH"
+          echo "Session date: $SESSION_DATE"

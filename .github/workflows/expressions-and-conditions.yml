@@ -1,0 +1,23 @@
+name: Expressions And Conditions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  event-check:
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Always run in this job
+        run: echo "Condition matched."
+      - name: Only on pull requests
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "Running PR-specific checks"
+      - name: Only on main branch push
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: echo "Running main branch checks"

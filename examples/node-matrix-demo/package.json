@@ -1,0 +1,9 @@
+{
+  "name": "node-matrix-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal Node project used by the GitHub Actions matrix workflow demo",
+  "scripts": {
+    "test": "node --test"
+  }
+}

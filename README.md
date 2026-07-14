@@ -17,6 +17,8 @@ The workshop includes 5 example workflows in `.github/workflows/`:
 4. `contexts-and-env.yml`: contexts, environment variables, and `$GITHUB_ENV`.
 5. `ci-node-matrix.yml`: matrix testing with Node.js and caching.
 
+The matrix example uses a minimal Node fixture project in `examples/node-matrix-demo/`.
+
 ## Running The Examples
 
 1. Open one workflow file from `.github/workflows/`.

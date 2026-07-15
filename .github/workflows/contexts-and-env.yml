@@ -25,3 +25,4 @@ jobs:
           echo "Workshop: $WORKSHOP_NAME"
           echo "Target branch: $TARGET_BRANCH"
           echo "Session date: $SESSION_DATE"
+          echo "This is my repo secret: ${{ secrets.MY_REPO_SECRET }}"

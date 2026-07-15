@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node Matrix Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #0b1020;
+        --card: #121933;
+        --text: #e8ecff;
+        --muted: #aab3d6;
+        --accent: #4bd4b6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        background: radial-gradient(circle at top right, #1f2f6b 0%, var(--bg) 55%);
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      main {
+        width: min(760px, 100%);
+        background: linear-gradient(180deg, #162048, var(--card));
+        border: 1px solid #2a376f;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .status {
+        margin: 18px 0 0;
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid #2a7f6f;
+        background: rgba(75, 212, 182, 0.12);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      code {
+        color: #c8d2ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Node Matrix Demo Is Live</h1>
+      <p>
+        This landing page is deployed with GitHub Actions using Firebase Hosting.
+      </p>
+      <p>
+        The CI matrix workflow validates the Node fixture under
+        <code>examples/node-matrix-demo</code>, and this deployment workflow publishes
+        the static site under the same example.
+      </p>
+      <span class="status">Deployment pipeline active</span>
+    </main>
+  </body>
+</html>

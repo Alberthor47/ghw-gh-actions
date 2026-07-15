@@ -1,0 +1,29 @@
+name: Deploy Node Demo To Firebase
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/deploy-firebase-node-demo.yml"
+      - "examples/node-matrix-demo/firebase.json"
+      - "examples/node-matrix-demo/hosting/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          channelId: live
+          entryPoint: examples/node-matrix-demo

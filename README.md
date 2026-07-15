@@ -19,6 +19,21 @@ The workshop includes 5 example workflows in `.github/workflows/`:
 
 The matrix example uses a minimal Node fixture project in `examples/node-matrix-demo/`.
 
+## Firebase Deployment Example
+
+This repo includes a deployment workflow for the Node demo landing page:
+
+- Workflow: `.github/workflows/deploy-firebase-node-demo.yml`
+- Site source: `examples/node-matrix-demo/hosting/index.html`
+- Firebase config: `examples/node-matrix-demo/firebase.json`
+
+Required repository secrets:
+
+1. `FIREBASE_SERVICE_ACCOUNT`: JSON service account key with Hosting deploy permissions.
+2. `FIREBASE_PROJECT_ID`: target Firebase project id.
+
+The deployment runs on pushes to `main` when the hosting files or deployment workflow change, and also supports manual runs via `workflow_dispatch`.
+
 ## Running The Examples
 
 1. Open one workflow file from `.github/workflows/`.
